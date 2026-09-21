@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+
+  <parent>
+    <groupId>org.springframework.boot</groupId>
+    <artifactId>spring-boot-starter-parent</artifactId>
+    <version>3.3.4</version>
+    <relativePath/>
+  </parent>
+
+  <groupId>com.wanlianyida</groupId>
+  <artifactId>wop-java-showcase</artifactId>
+  <version>0.2.0</version>
+  <packaging>jar</packaging>
+  <name>WOP Java SDK Spring Boot Showcase</name>
+  <description>wop-java-sdk 0.2.0 商户侧 Spring Boot 集成演示：JSON 配置 → @Bean WopClient → execute 调用 → 回调验签</description>
+
+  <properties>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+    <java.version>17</java.version>
+    <wop.sdk.version>0.2.0</wop.sdk.version>
+  </properties>
+
+  <dependencies>
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-web</artifactId>
+    </dependency>
+
+    <!-- ===== WOP SDK：core（协议 + 配置层）+ okhttp 传输（经 SPI 自动发现）=====
+         注：实测该网关的 4xx 错误响应在 JDK HttpURLConnection 上 getErrorStream()
+         读不到错误体（声明 Content-Length 但实收 0），okhttp 适配器无此问题，
+         故默认选 okhttp；okhttp 在 SDK 模块中为 provided，须自带依赖。 -->
+    <dependency>
+      <groupId>com.wanlianyida</groupId>
+      <artifactId>wop-sdk-core</artifactId>
+      <version>${wop.sdk.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>com.wanlianyida</groupId>
+      <artifactId>wop-sdk-okhttp</artifactId>
+      <version>${wop.sdk.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>com.squareup.okhttp3</groupId>
+      <artifactId>okhttp</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-test</artifactId>
+      <scope>test</scope>
+    </dependency>
+  </dependencies>
+
+  <build>
+    <plugins>
+      <plugin>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-maven-plugin</artifactId>
+      </plugin>
+    </plugins>
+  </build>
+</project>
