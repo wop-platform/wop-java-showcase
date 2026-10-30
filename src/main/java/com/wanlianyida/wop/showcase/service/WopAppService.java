@@ -55,7 +55,10 @@ public class WopAppService {
      * @return 平台响应明文（验签通过后解出的业务 JSON）
      */
     public String oneStop(WopCallRequest req) {
-        VerifyResult result = client.execute(METHOD_POST, pathOf(req), bodyOf(req), levelOf(req));
+        WopRequestOptions options = optionsOrNull(req);
+        VerifyResult result = options == null
+                ? client.execute(METHOD_POST, pathOf(req), bodyOf(req), levelOf(req))
+                : client.execute(METHOD_POST, pathOf(req), bodyOf(req), levelOf(req), options);
         return unwrap(result);
     }
 
@@ -65,14 +68,17 @@ public class WopAppService {
      * 需要自定义 HTTP 栈或旁路观测报文时用这种。
      */
     public String stepByStep(WopCallRequest req) {
-        RequestDraft draft = client.buildRequest(METHOD_POST, pathOf(req), bodyOf(req), levelOf(req));
+        WopRequestOptions options = optionsOrNull(req);
+        RequestDraft draft = options == null
+                ? client.buildRequest(METHOD_POST, pathOf(req), bodyOf(req), levelOf(req))
+                : client.buildRequest(METHOD_POST, pathOf(req), bodyOf(req), levelOf(req), options);
         TransportResponse response = transport.send(draft);
         return unwrap(client.verifyResponse(response, draft));
     }
 
     /** 每笔请求覆盖①：替换超时时间（connectTimeout / readTimeout 毫秒，仅本笔生效）。 */
     public String overrideTimeout(WopCallRequest req) {
-        WopRequestOptions.Builder options = WopRequestOptions.builder();
+        WopRequestOptions.Builder options = baseOptions(req);
         if (req.getConnectTimeout() != null && req.getConnectTimeout() > 0) {
             options.connectTimeout(req.getConnectTimeout());
         }
@@ -87,7 +93,7 @@ public class WopAppService {
         if (req.getAppKey() == null || req.getAppKey().trim().isEmpty()) {
             throw new IllegalArgumentException("appKey 必填");
         }
-        return executeWithOptions(req, WopRequestOptions.builder().appKey(req.getAppKey().trim()).build());
+        return executeWithOptions(req, baseOptions(req).appKey(req.getAppKey().trim()).build());
     }
 
     /** 每笔请求覆盖③：替换主域名（本笔只请求该域名，Failover 关闭，K3）。 */
@@ -95,7 +101,7 @@ public class WopAppService {
         if (req.getServerRoot() == null || req.getServerRoot().trim().isEmpty()) {
             throw new IllegalArgumentException("serverRoot 必填");
         }
-        return executeWithOptions(req, WopRequestOptions.builder().serverRoot(req.getServerRoot().trim()).build());
+        return executeWithOptions(req, baseOptions(req).serverRoot(req.getServerRoot().trim()).build());
     }
 
     /**
@@ -106,14 +112,15 @@ public class WopAppService {
     public List<Map<String, Object>> preview(WopCallRequest req) {
         String path = pathOf(req);
         byte[] body = bodyOf(req);
+        WopRequestOptions options = optionsOrNull(req);
         List<Map<String, Object>> previews = new ArrayList<>();
         if (req.getSecurityLevel() == null || req.getSecurityLevel().trim().isEmpty()) {
-            previews.add(previewOf(path, body, SecurityLevel.L0));
+            previews.add(previewOf(path, body, SecurityLevel.L0, options));
             if (body != null) {
-                previews.add(previewOf(path, body, SecurityLevel.L2));
+                previews.add(previewOf(path, body, SecurityLevel.L2, options));
             }
         } else {
-            previews.add(previewOf(path, body, levelOf(req)));
+            previews.add(previewOf(path, body, levelOf(req), options));
         }
         return previews;
     }
@@ -130,8 +137,11 @@ public class WopAppService {
         return unwrap(result);
     }
 
-    private Map<String, Object> previewOf(String path, byte[] body, SecurityLevel level) {
-        RequestDraft draft = client.buildRequest(METHOD_POST, path, body, level);
+    private Map<String, Object> previewOf(String path, byte[] body, SecurityLevel level,
+                                          WopRequestOptions options) {
+        RequestDraft draft = options == null
+                ? client.buildRequest(METHOD_POST, path, body, level)
+                : client.buildRequest(METHOD_POST, path, body, level, options);
         Map<String, Object> item = new LinkedHashMap<>();
         item.put("level", level.name());
         item.put("method", draft.method());
@@ -140,6 +150,25 @@ public class WopAppService {
         item.put("wireBody", draft.wireBody() == null
                 ? null : new String(draft.wireBody(), StandardCharsets.UTF_8));
         return item;
+    }
+
+    /**
+     * 请求级选项基座：仅承载 subMchId（ISV 子商户身份头），其余覆盖由各 override 接口追加。
+     */
+    private static WopRequestOptions.Builder baseOptions(WopCallRequest req) {
+        WopRequestOptions.Builder builder = WopRequestOptions.builder();
+        if (req.getSubMchId() != null && !req.getSubMchId().trim().isEmpty()) {
+            builder.subMchId(req.getSubMchId().trim());
+        }
+        return builder;
+    }
+
+    /**
+     * 无任何请求级覆盖时返回 null，走 SDK 无 options 的调用路径（保持既有语义与日志）。
+     */
+    private static WopRequestOptions optionsOrNull(WopCallRequest req) {
+        WopRequestOptions options = baseOptions(req).build();
+        return options.isEmpty() ? null : options;
     }
 
     private static String pathOf(WopCallRequest req) {

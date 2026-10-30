@@ -134,6 +134,29 @@ class WopAppServiceTest {
                 .hasMessageContaining("securityLevel");
     }
 
+    @Test
+    void oneStopCarriesSubMchIdIntoOptions() {
+        when(client.execute(anyString(), anyString(), any(), any(SecurityLevel.class),
+                any(WopRequestOptions.class))).thenReturn(ok("{}"));
+
+        WopCallRequest req = request("/gateway/demo", null, Map.of("a", 1));
+        req.setSubMchId("PLF-SUB-001");
+        service.oneStop(req);
+
+        ArgumentCaptor<WopRequestOptions> captor = ArgumentCaptor.forClass(WopRequestOptions.class);
+        verify(client).execute(anyString(), anyString(), any(), eq(SecurityLevel.L0), captor.capture());
+        assertThat(captor.getValue().subMchId()).isEqualTo("PLF-SUB-001");
+    }
+
+    @Test
+    void oneStopWithoutSubMchIdKeepsDefaultCallPath() {
+        when(client.execute(anyString(), anyString(), any(), any(SecurityLevel.class))).thenReturn(ok("{}"));
+
+        service.oneStop(request("/gateway/demo", null, Map.of("a", 1)));
+
+        verify(client).execute(eq("POST"), eq("/gateway/demo"), any(), eq(SecurityLevel.L0));
+    }
+
     // ==================== 分步 API ====================
 
     @Test
@@ -150,6 +173,24 @@ class WopAppServiceTest {
 
         assertThat(plaintext).isEqualTo("{\"ok\":true}");
         verify(client).verifyResponse(any(TransportResponse.class), eq(draft));
+    }
+
+    @Test
+    void stepByStepCarriesSubMchIdIntoOptions() {
+        RequestDraft draft = new RequestDraft("POST", "/gateway/demo",
+                Map.of("x-wop-sub-mch-id", "PLF-SUB-001"), new byte[0]);
+        when(client.buildRequest(anyString(), anyString(), any(), any(SecurityLevel.class),
+                any(WopRequestOptions.class))).thenReturn(draft);
+        when(client.verifyResponse(any(TransportResponse.class), eq(draft))).thenReturn(ok("{}"));
+        lastSentResponse = new TransportResponse(200, Map.of(), new byte[0]);
+
+        WopCallRequest req = request("/gateway/demo", "L0", Map.of());
+        req.setSubMchId("PLF-SUB-001");
+        service.stepByStep(req);
+
+        ArgumentCaptor<WopRequestOptions> captor = ArgumentCaptor.forClass(WopRequestOptions.class);
+        verify(client).buildRequest(anyString(), anyString(), any(), eq(SecurityLevel.L0), captor.capture());
+        assertThat(captor.getValue().subMchId()).isEqualTo("PLF-SUB-001");
     }
 
     @Test
@@ -267,6 +308,38 @@ class WopAppServiceTest {
 
         assertThat(previews).hasSize(1);
         assertThat(previews.get(0)).containsEntry("level", "L2");
+    }
+
+    @Test
+    void previewCarriesSubMchIdIntoOptions() {
+        when(client.buildRequest(anyString(), anyString(), any(), any(SecurityLevel.class),
+                any(WopRequestOptions.class))).thenAnswer(inv -> new RequestDraft(inv.getArgument(0),
+                inv.getArgument(1), Map.of("x-wop-sub-mch-id", "PLF-SUB-001"), new byte[0]));
+
+        WopCallRequest req = request("/gateway/demo", "L0", Map.of("a", 1));
+        req.setSubMchId("PLF-SUB-001");
+        List<Map<String, Object>> previews = service.preview(req);
+
+        assertThat(String.valueOf(previews.get(0).get("headers"))).contains("x-wop-sub-mch-id");
+        ArgumentCaptor<WopRequestOptions> captor = ArgumentCaptor.forClass(WopRequestOptions.class);
+        verify(client).buildRequest(anyString(), anyString(), any(), eq(SecurityLevel.L0), captor.capture());
+        assertThat(captor.getValue().subMchId()).isEqualTo("PLF-SUB-001");
+    }
+
+    @Test
+    void overrideTimeoutKeepsSubMchIdAlongsideTimeouts() {
+        when(client.execute(anyString(), anyString(), any(), any(SecurityLevel.class),
+                any(WopRequestOptions.class))).thenReturn(ok("{}"));
+
+        WopCallRequest req = request("/gateway/demo", "L0", Map.of());
+        req.setSubMchId("PLF-SUB-001");
+        req.setConnectTimeout(5000);
+        service.overrideTimeout(req);
+
+        ArgumentCaptor<WopRequestOptions> captor = ArgumentCaptor.forClass(WopRequestOptions.class);
+        verify(client).execute(anyString(), anyString(), any(), eq(SecurityLevel.L0), captor.capture());
+        assertThat(captor.getValue().subMchId()).isEqualTo("PLF-SUB-001");
+        assertThat(captor.getValue().connectTimeout()).isEqualTo(5000);
     }
 
     @Test

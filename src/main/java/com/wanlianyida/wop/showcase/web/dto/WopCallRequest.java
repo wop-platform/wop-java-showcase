@@ -12,6 +12,7 @@ import java.util.Map;
  * @param readTimeout    读超时毫秒（仅 override/timeout 接口消费，&gt;0 生效）
  * @param appKey         覆盖用 appKey（仅 override/app-key 接口消费）
  * @param serverRoot     覆盖用主域名（仅 override/server-root 接口消费）
+ * @param subMchId       ISV 子商户平台企业id（可选，携带 x-wop-sub-mch-id 头；所有调用接口通用）
  */
 public class WopCallRequest {
 
@@ -22,6 +23,7 @@ public class WopCallRequest {
     private Integer readTimeout;
     private String appKey;
     private String serverRoot;
+    private String subMchId;
 
     public String getPath() {
         return path;
@@ -77,5 +79,13 @@ public class WopCallRequest {
 
     public void setServerRoot(String serverRoot) {
         this.serverRoot = serverRoot;
+    }
+
+    public String getSubMchId() {
+        return subMchId;
+    }
+
+    public void setSubMchId(String subMchId) {
+        this.subMchId = subMchId;
     }
 }
