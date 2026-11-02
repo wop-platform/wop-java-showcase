@@ -22,7 +22,7 @@
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
     <java.version>17</java.version>
-    <wop.sdk.version>0.2.0</wop.sdk.version>
+    <wop.sdk.version>0.3.0</wop.sdk.version>
   </properties>
 
   <dependencies>

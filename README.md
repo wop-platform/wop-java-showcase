@@ -1,6 +1,6 @@
 # wop-java-showcase
 
-[Spring Boot](https://spring.io/projects/spring-boot) 3.x 商户侧接入 [wop-java-sdk](https://github.com/wop-platform/wop-java-sdk) 0.2.0 的最简示例工程。
+[Spring Boot](https://spring.io/projects/spring-boot) 3.x 商户侧接入 [wop-java-sdk](https://github.com/wop-platform/wop-java-sdk) 0.3.0 的最简示例工程。
 
 **JSON 配置文件（resources 打包）→ `@Bean WopClient` → 业务代码一行 `execute()`**；
 无需理解签名、摘要、L2 数字信封与验签解密细节。
@@ -19,26 +19,26 @@ src/main/java/.../showcase/
     └── dto/WopCallRequest.java              # 统一请求体（普通类，getter/setter）
 src/test/java/.../
 ├── web/WopDemoControllerTest.java           # Controller 全场景测试（MockMvc，18 例）
-└── service/WopAppServiceTest.java           # Service 逻辑测试（Mockito + 进程内 Transport，16 例）
+└── service/WopAppServiceTest.java           # Service 逻辑测试（Mockito + 进程内 Transport，22 例）
 ```
 
 ## 快速开始
 
 ```bash
-# 依赖 SDK 0.2.0 已安装到本地仓库（SDK 仓执行: mvn -DskipTests install）
+# 依赖 SDK 0.3.0 已安装到本地仓库（SDK 仓执行: mvn -DskipTests install）
 mvn spring-boot:run    # 启动
-mvn test               # 单元测试（34 例，零网络）
+mvn test               # 单元测试（40 例，零网络）
 ```
 
 配置文件 `src/main/resources/config/wopSdkConfig.json`（当前为网关测试环境 + TEST-ONLY 联调密钥）：
 
 | 字段 | 当前值 | 说明 |
 |------|--------|------|
-| `appKey` | `app_b06s4hi87frpn2et` | 商户 appKey（`x-wop-appkey` 头） |
+| `appKey` | `app_xxxxxxxxxxxxxxxx` | 商户 appKey（`x-wop-appkey` 头） |
 | `suite` | `WOP-RSA2048-SHA256` | 算法套件（默认 2048） |
 | `merchantPrivateKey` / `platformPublicKey` | TEST-ONLY | 商户私钥 / 平台公钥（Base64 单行） |
-| `serverRoot` | `https://openapi-hw.10000da.vip:443` | 网关测试环境域名（HTTPS，含 context-path） |
-| `backupServerRoots` | `https://openapi-hw-backup.10000da.vip:443` | 备用网关（有序，主网关连接类失败后依序尝试） |
+| `serverRoot` | `https://<网关域名>:443` | 网关地址（HTTPS，含 context-path） |
+| `backupServerRoots` | `https://<备用网关域名>:443` | 备用网关（有序，主网关连接类失败后依序尝试） |
 | `expiredSeconds` | `1800` | 签名有效窗口（秒） |
 | `httpClient` | 10000 / 30000 / 3 | 连接超时 / 读超时（ms）/ 跨域名重试上限 |
 
@@ -54,7 +54,7 @@ mvn test               # 单元测试（34 例，零网络）
     "path": "/logistics/waybill/query-waybill-info",
     "securityLevel": "L2",
     "body": {
-        "waybillId": "TD2026062200000054"
+        "waybillId": "TDxxxxxxxxxxxxxxxx"
     }
 }
 ```
@@ -63,6 +63,7 @@ mvn test               # 单元测试（34 例，零网络）
 - `securityLevel` 取 `L0`/`L2`，缺省 `L0`；`body` 为业务 JSON **对象**；
 - 报文里若带 `"method"` 字段会被忽略（一律按 POST 处理）。
 - 覆盖类接口额外消费 `connectTimeout` / `readTimeout`（毫秒）、`appKey`、`serverRoot`。
+- `subMchId` 可选（ISV 子商户平台企业id）：设置后所有调用接口都会携带 `x-wop-sub-mch-id` 头，以子商户身份调用；缺省不带头 = 应用自身身份。
 
 | 接口 | 额外必填 | 说明 |
 |------|--------|------|
@@ -77,21 +78,25 @@ mvn test               # 单元测试（34 例，零网络）
 ### 调用示例
 
 ```bash
+# ISV 子商户身份调用：所有调用接口都可带 subMchId，请求头多出 x-wop-sub-mch-id
+curl -X POST localhost:8080/api/wop/one-stop -H "Content-Type: application/json" \
+  -d '{"path":"/logistics/waybill/query-waybill-info","securityLevel":"L0","body":{"waybillId":"TDxxxxxxxxxxxxxxxx"},"subMchId":"PLF-SUB-001"}'
+
 # 请求预览（L2 报文；securityLevel 不传则返回 L0 与 L2 两份对比，不发网络请求）
 curl -X POST localhost:8080/api/wop/preview -H "Content-Type: application/json" \
-  -d '{"path":"/logistics/waybill/query-waybill-info","securityLevel":"L2","body":{"waybillId":"TD2026062200000054"}}'
+  -d '{"path":"/logistics/waybill/query-waybill-info","securityLevel":"L2","body":{"waybillId":"TDxxxxxxxxxxxxxxxx"}}'
 
 # 一站式调用（L0 明文：仅签名 + 摘要）
 curl -X POST localhost:8080/api/wop/one-stop -H "Content-Type: application/json" \
-  -d '{"path":"/logistics/waybill/query-waybill-info","securityLevel":"L0","body":{"waybillId":"TD2026062200000054"}}'
+  -d '{"path":"/logistics/waybill/query-waybill-info","securityLevel":"L0","body":{"waybillId":"TDxxxxxxxxxxxxxxxx"}}'
 
 # 一站式调用（L2 全文数字信封：SDK 自动加密为 {"encrypted":"..."}，DEK 平台公钥包装）
 curl -X POST localhost:8080/api/wop/one-stop -H "Content-Type: application/json" \
-  -d '{"path":"/logistics/waybill/query-waybill-info","securityLevel":"L2","body":{"waybillId":"TD2026062200000054"}}'
+  -d '{"path":"/logistics/waybill/query-waybill-info","securityLevel":"L2","body":{"waybillId":"TDxxxxxxxxxxxxxxxx"}}'
 
 # 分步 API 调用
 curl -X POST localhost:8080/api/wop/step-by-step -H "Content-Type: application/json" \
-  -d '{"path":"/logistics/waybill/query-waybill-info","securityLevel":"L0","body":{"waybillId":"TD2026062200000054"}}'
+  -d '{"path":"/logistics/waybill/query-waybill-info","securityLevel":"L0","body":{"waybillId":"TDxxxxxxxxxxxxxxxx"}}'
 
 # 每笔替换超时
 curl -X POST localhost:8080/api/wop/override/timeout -H "Content-Type: application/json" \
@@ -101,7 +106,7 @@ curl -X POST localhost:8080/api/wop/override/timeout -H "Content-Type: applicati
 curl -X POST localhost:8080/api/wop/override/app-key -H "Content-Type: application/json" \
   -d '{"path":"/gateway/demo","body":{},"appKey":"app_xxx"}'
 curl -X POST localhost:8080/api/wop/override/server-root -H "Content-Type: application/json" \
-  -d '{"path":"/gateway/demo","body":{},"serverRoot":"https://openapi-hw.10000da.vip:443"}'
+  -d '{"path":"/gateway/demo","body":{},"serverRoot":"https://<网关域名>:443"}'
 ```
 
 应答体：`{"ok":true,"data":"<平台响应明文>"}`；
@@ -150,10 +155,10 @@ byte[] wireBody = draft.wireBody();                     // L2: {"encrypted":"...
 
 ## 测试
 
-`mvn test` 共 35 例（零网络）：
+`mvn test` 共 40 例（零网络）：
 
 - **WopDemoControllerTest**（18 例，MockMvc + MockBean）：请求绑定（path/securityLevel/body 对象与缺省值、样例报文 method 字段容忍）、一站式成功/网关非 2xx/验签失败/缺 path 400/非法 securityLevel 400、分步成功与非 2xx、三类覆盖的 400 校验与参数透传、预览应答、config；
-- **WopAppServiceTest**（17 例，Mockito + 注入进程内 Transport）：恒以 POST 发送（含无 body）、body 序列化、L0/L2 级别传递、验签失败异常、分步三环节衔接、三类覆盖进入 `WopRequestOptions`、预览 L0+L2 单份/双份与 GET 无 body、配置打码。
+- **WopAppServiceTest**（22 例，Mockito + 注入进程内 Transport）：恒以 POST 发送（含无 body）、body 序列化、L0/L2 级别传递、验签失败异常、分步三环节衔接、三类覆盖进入 `WopRequestOptions`、预览 L0+L2 单份/双份与 GET 无 body、配置打码。
 
 ## 当前状态说明
 
