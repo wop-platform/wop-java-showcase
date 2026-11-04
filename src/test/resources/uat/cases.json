@@ -1,0 +1,647 @@
+[
+  {
+    "id": "1",
+    "name": "同步车辆信息",
+    "path": "/logistics/platform/car-verify/sync-car-data",
+    "securityLevel": "L0",
+    "body": [
+      {
+        "driverPhone": "13621220614",
+        "licenseNo": "371427199206115813",
+        "driverName": "马福生",
+        "enterpriseId": "1982634746747482112",
+        "plateNo": "云VTY003",
+        "plateColor": 1,
+        "carType": "G11",
+        "carLicense": {
+          "plateNo": "云VTY003",
+          "plateColor": 1,
+          "carType": "G11",
+          "useNature": "A050",
+          "carOwnerName": "   测试字符串 「[{()!!    扎  120 ,..,·！#￥%……&*（ ‘’）`~//>><<,<《''》···.87&*ha]}』】」001",
+          "individualFlag": "20",
+          "carDentificationOde": "LFMAP16CXXX123456",
+          "engineNo": "16CXXX123456",
+          "registerDate": "2020-01-01 00:00:00",
+          "issuanceDate": "2020-01-01 00:00:00",
+          "issuanceAgency": "北京市公安局交通管理局",
+          "carBrand": "解放",
+          "archiveNumber": "110101202001001",
+          "totalWeight": 49000,
+          "curbWeight": 15000,
+          "verifyLoadWeight": 34000,
+          "tractionWeight": 49000,
+          "carLength": 12000,
+          "carWidth": 2550,
+          "carHeight": 4000,
+          "checkValidityDate": "2026-01-01 00:00:00",
+          "scrapDate": "2035-01-01 00:00:00",
+          "energyType": "10"
+        },
+        "carTranCert": {
+          "plateNo": "云VTY003",
+          "carType": "G11",
+          "certNo": "110101202000123",
+          "licenseNo": "JY1101012020001",
+          "licenseName": "   验证 「[{()!!    扎  120 ,..,·！#￥%……&*（ ‘’）`~//>><<,<《''》···.87&*ha]}』】」 ",
+          "licenseScope": "普通货物运输",
+          "licenseValidityDate": "2026-01-01 00:00:00",
+          "reviewValidityDate": "2026-01-01 00:00:00"
+        },
+        "attachmentCommands": [
+          {
+            "businessType": "1101",
+            "attachmentAddress": "https://wlyd-oss-uat.oss-cn-zhangjiakou.aliyuncs.com/lgi/drivingLicenseFront/202608/2094244866699169792.jpeg?Expires=1788164378&OSSAccessKeyId=STS.NYZh6iMhCQye6fzKAxSZ1qsqd&Signature=meIZUlYBUs%2FIwzmcSnS5GDdWqd0%3D&security-token=CAISzwJ1q6Ft5B2yfSjIr5rvI4zdoLdi5ruONEDLr0EtX9Udnrbahjz2IHhMeHVtAOwZt%2Fk3mGlS6PkalqRuU5tCTED%2FYNFu759aqZBA2Vws557b16cNrbH4M0rxYkeJ8a2%2FSuH9S8ynCZXJQlvYlyh17KLnfDG5JTKMOoGIjpgVBbZ%2BHHPPD1x8CcxROxFppeIDKHLVLozNCBPxhXfKB0ca0WgVy0EHsPrlm5zAtUaE3Qall7VJ9r6ceMb0M5NeW75kSMqw0eBMca7M7TVd8RAi9t0t1PQYpWqe4o7EXgENuk%2FYbLLOjcB3KAhwau09ALUBs%2Fztmbh%2FofeWio3r2%2B%2B%2FqAvM37y1rumBtyikcIvBXr5RHT1r7qrQ7xNuTqbvRQUeY3wlOjWYh7ZO0YeI8PXli%2FwT515KFZk7u%2BZCgll0ukpMsuWet76DprJPcAfTHt3xuRqAARd1epfsGeoP0pZ62Ej5F%2BQaGuCmkpDhXQ4LdWc9IkTG2%2BpmksOhe%2BWd%2Fd1bNbQ8q3zAJsmcjvI7kF4R9Qy5MK%2B2CXEkXaOrvedt76g9lGhfEH8FlK6z1D1OktHSaBX0%2F9w3F8nyiJ%2FAu3CS3JsLMbeaivsiLllynOlhnLl7VAbxIAA%3D"
+          },
+          {
+            "businessType": "1102",
+            "attachmentAddress": "https://wlyd-oss-uat.oss-cn-zhangjiakou.aliyuncs.com/lgi/drivingBack/202608/2094244610066485248.jpeg?Expires=1788164378&OSSAccessKeyId=STS.NYZh6iMhCQye6fzKAxSZ1qsqd&Signature=mxjL0b8Ytq0LtZHolgAjSHFc5Yg%3D&security-token=CAISzwJ1q6Ft5B2yfSjIr5rvI4zdoLdi5ruONEDLr0EtX9Udnrbahjz2IHhMeHVtAOwZt%2Fk3mGlS6PkalqRuU5tCTED%2FYNFu759aqZBA2Vws557b16cNrbH4M0rxYkeJ8a2%2FSuH9S8ynCZXJQlvYlyh17KLnfDG5JTKMOoGIjpgVBbZ%2BHHPPD1x8CcxROxFppeIDKHLVLozNCBPxhXfKB0ca0WgVy0EHsPrlm5zAtUaE3Qall7VJ9r6ceMb0M5NeW75kSMqw0eBMca7M7TVd8RAi9t0t1PQYpWqe4o7EXgENuk%2FYbLLOjcB3KAhwau09ALUBs%2Fztmbh%2FofeWio3r2%2B%2B%2FqAvM37y1rumBtyikcIvBXr5RHT1r7qrQ7xNuTqbvRQUeY3wlOjWYh7ZO0YeI8PXli%2FwT515KFZk7u%2BZCgll0ukpMsuWet76DprJPcAfTHt3xuRqAARd1epfsGeoP0pZ62Ej5F%2BQaGuCmkpDhXQ4LdWc9IkTG2%2BpmksOhe%2BWd%2Fd1bNbQ8q3zAJsmcjvI7kF4R9Qy5MK%2B2CXEkXaOrvedt76g9lGhfEH8FlK6z1D1OktHSaBX0%2F9w3F8nyiJ%2FAu3CS3JsLMbeaivsiLllynOlhnLl7VAbxIAA%3D"
+          },
+          {
+            "businessType": "1103",
+            "attachmentAddress": "https://wlyd-oss-uat.oss-cn-zhangjiakou.aliyuncs.com/platform/cf08f3579dfc4b6e8dba85894547c3d7_2022-06-19%2015%3A48%3A16_tmp_e456ea9a1f7665bb9a2dcf28b97dd1af.jpg"
+          },
+          {
+            "businessType": "1111",
+            "attachmentAddress": "https://wlyd-oss-uat.oss-cn-zhangjiakou.aliyuncs.com/lgi/transportCert/202608/2094246363239419904.jpeg?Expires=1788164379&OSSAccessKeyId=STS.NYZh6iMhCQye6fzKAxSZ1qsqd&Signature=d%2BajWeS6jGHweITXr8IC1IUjDXE%3D&security-token=CAISzwJ1q6Ft5B2yfSjIr5rvI4zdoLdi5ruONEDLr0EtX9Udnrbahjz2IHhMeHVtAOwZt%2Fk3mGlS6PkalqRuU5tCTED%2FYNFu759aqZBA2Vws557b16cNrbH4M0rxYkeJ8a2%2FSuH9S8ynCZXJQlvYlyh17KLnfDG5JTKMOoGIjpgVBbZ%2BHHPPD1x8CcxROxFppeIDKHLVLozNCBPxhXfKB0ca0WgVy0EHsPrlm5zAtUaE3Qall7VJ9r6ceMb0M5NeW75kSMqw0eBMca7M7TVd8RAi9t0t1PQYpWqe4o7EXgENuk%2FYbLLOjcB3KAhwau09ALUBs%2Fztmbh%2FofeWio3r2%2B%2B%2FqAvM37y1rumBtyikcIvBXr5RHT1r7qrQ7xNuTqbvRQUeY3wlOjWYh7ZO0YeI8PXli%2FwT515KFZk7u%2BZCgll0ukpMsuWet76DprJPcAfTHt3xuRqAARd1epfsGeoP0pZ62Ej5F%2BQaGuCmkpDhXQ4LdWc9IkTG2%2BpmksOhe%2BWd%2Fd1bNbQ8q3zAJsmcjvI7kF4R9Qy5MK%2B2CXEkXaOrvedt76g9lGhfEH8FlK6z1D1OktHSaBX0%2F9w3F8nyiJ%2FAu3CS3JsLMbeaivsiLllynOlhnLl7VAbxIAA%3D"
+          },
+          {
+            "businessType": "1112",
+            "attachmentAddress": "https://wlyd-oss-uat.oss-cn-zhangjiakou.aliyuncs.com/lgi/transportCert/202608/2094246363239419904.jpeg?Expires=1788164379&OSSAccessKeyId=STS.NYZh6iMhCQye6fzKAxSZ1qsqd&Signature=d%2BajWeS6jGHweITXr8IC1IUjDXE%3D&security-token=CAISzwJ1q6Ft5B2yfSjIr5rvI4zdoLdi5ruONEDLr0EtX9Udnrbahjz2IHhMeHVtAOwZt%2Fk3mGlS6PkalqRuU5tCTED%2FYNFu759aqZBA2Vws557b16cNrbH4M0rxYkeJ8a2%2FSuH9S8ynCZXJQlvYlyh17KLnfDG5JTKMOoGIjpgVBbZ%2BHHPPD1x8CcxROxFppeIDKHLVLozNCBPxhXfKB0ca0WgVy0EHsPrlm5zAtUaE3Qall7VJ9r6ceMb0M5NeW75kSMqw0eBMca7M7TVd8RAi9t0t1PQYpWqe4o7EXgENuk%2FYbLLOjcB3KAhwau09ALUBs%2Fztmbh%2FofeWio3r2%2B%2B%2FqAvM37y1rumBtyikcIvBXr5RHT1r7qrQ7xNuTqbvRQUeY3wlOjWYh7ZO0YeI8PXli%2FwT515KFZk7u%2BZCgll0ukpMsuWet76DprJPcAfTHt3xuRqAARd1epfsGeoP0pZ62Ej5F%2BQaGuCmkpDhXQ4LdWc9IkTG2%2BpmksOhe%2BWd%2Fd1bNbQ8q3zAJsmcjvI7kF4R9Qy5MK%2B2CXEkXaOrvedt76g9lGhfEH8FlK6z1D1OktHSaBX0%2F9w3F8nyiJ%2FAu3CS3JsLMbeaivsiLllynOlhnLl7VAbxIAA%3D"
+          }
+        ]
+      }
+    ],
+    "expect": "reachable"
+  },
+  {
+    "id": "2",
+    "name": "同步司机信息",
+    "path": "/logistics/platform/driver-verify/sync-driver-data",
+    "securityLevel": "L0",
+    "body": [
+      {
+        "driverPhone": "13621220615",
+        "licenseNo": "371427199206115813",
+        "driverName": "马生福",
+        "enterpriseId": "2080265141261324288",
+        "failedMessage": null,
+        "driverIdentityCommand": {
+          "name": "马生福",
+          "sex": "男",
+          "nation": "汉",
+          "dateOfBirth": "1990-01-01",
+          "provinceCode": "110000",
+          "provinceName": "北京市",
+          "cityCode": "110100",
+          "cityName": "北京市",
+          "areaCode": "110105",
+          "areaName": "朝阳区",
+          "addressDetail": "北京市东城区某某街道1号",
+          "licenseNo": "371427199206115813",
+          "licenseDepartmentGov": "北京市公安局东城分局",
+          "licenseStartDate": "2020-01-01",
+          "licenseEndDate": "2040-01-01",
+          "licenseValidFlag": "0"
+        },
+        "drivingLicenceCommand": {
+          "licenseNo": "110101199001011234",
+          "licenseType": "21",
+          "licenseDepartmentGov": "北京市公安局交通管理局",
+          "licenseStartDate": "2020-02-01",
+          "licenseEndDate": "2040-02-01",
+          "licenseValidFlag": "0",
+          "licenseFirstTime": "2015-02-01",
+          "licenseFileNo": "371427199206115813",
+          "licenseVerifyDate": "2027-02-01"
+        },
+        "driverCertificateCommand": {
+          "licenseNo": "110101199001011234",
+          "licenseType": "道路货运驾驶员",
+          "licenseStartDate": "2020-03-01",
+          "licenseEndDate": "2027-03-01",
+          "licenseFirstTime": "2020-03-01",
+          "licenseValidFlag": "0",
+          "annualAuditValidityPeriod": "2027-03-01",
+          "annualAuditValidFlag": "0"
+        },
+        "attachmentCommands": [
+          {
+            "businessType": "1001",
+            "attachmentAddress": "https://wlyd-oss-uat.oss-cn-zhangjiakou.aliyuncs.com/platform/cf08f3579dfc4b6e8dba85894547c3d7_2022-06-19%2015%3A48%3A16_tmp_e456ea9a1f7665bb9a2dcf28b97dd1af.jpg"
+          },
+          {
+            "businessType": "1002",
+            "attachmentAddress": "https://wlyd-oss-uat.oss-cn-zhangjiakou.aliyuncs.com/platform/cf08f3579dfc4b6e8dba85894547c3d7_2022-06-19%2015%3A48%3A16_tmp_e456ea9a1f7665bb9a2dcf28b97dd1af.jpg"
+          },
+          {
+            "businessType": "1013",
+            "attachmentAddress": "https://wlyd-oss-uat.oss-cn-zhangjiakou.aliyuncs.com/platform/cf08f3579dfc4b6e8dba85894547c3d7_2022-06-19%2015%3A48%3A16_tmp_e456ea9a1f7665bb9a2dcf28b97dd1af.jpg"
+          },
+          {
+            "businessType": "1011",
+            "attachmentAddress": "https://wlyd-oss-uat.oss-cn-zhangjiakou.aliyuncs.com/platform/cf08f3579dfc4b6e8dba85894547c3d7_2022-06-19%2015%3A48%3A16_tmp_e456ea9a1f7665bb9a2dcf28b97dd1af.jpg"
+          },
+          {
+            "businessType": "1012",
+            "attachmentAddress": "https://wlyd-oss-uat.oss-cn-zhangjiakou.aliyuncs.com/platform/cf08f3579dfc4b6e8dba85894547c3d7_2022-06-19%2015%3A48%3A16_tmp_e456ea9a1f7665bb9a2dcf28b97dd1af.jpg"
+          },
+          {
+            "businessType": "1020",
+            "attachmentAddress": "https://wlyd-oss-uat.oss-cn-zhangjiakou.aliyuncs.com/platform/cf08f3579dfc4b6e8dba85894547c3d7_2022-06-19%2015%3A48%3A16_tmp_e456ea9a1f7665bb9a2dcf28b97dd1af.jpg"
+          }
+        ]
+      }
+    ],
+    "expect": "reachable"
+  },
+  {
+    "id": "3",
+    "name": "更换司机手机号",
+    "path": "/logistics/enterprise-driver/update-driver-phone",
+    "securityLevel": "L0",
+    "body": {
+      "enterpriseId": "1980897735359021056",
+      "licenseNo": "370101198802274030",
+      "telephone": "15099998889"
+    },
+    "expect": "reachable"
+  },
+  {
+    "id": "5",
+    "name": "司机银行卡判断&绑定",
+    "path": "/logistics/open-plat/bank-card/judge-bind",
+    "securityLevel": "L0",
+    "body": {
+      "driverMobile": "13683230971",
+      "bankCardNo": "6214830160643168",
+      "bankCode": "CMB",
+      "driverName": "肖红",
+      "idCardNo": "130626199209211228",
+      "cardType": "1"
+    },
+    "expect": "reachable"
+  },
+  {
+    "id": "6",
+    "name": "银行卡绑定查询",
+    "path": "/logistics/open-plat/bank-card/bind-status-query",
+    "securityLevel": "L0",
+    "body": {
+      "driverMobile": "13683230971",
+      "bankCardNo": "6214830160643168",
+      "bankCode": "CMBCHINA"
+    },
+    "expect": "reachable"
+  },
+  {
+    "id": "7",
+    "name": "银行编码查询",
+    "path": "/logistics/open-plat/bank-card/query-all-bank-info",
+    "securityLevel": "L0",
+    "body": {},
+    "expect": "unavailable-5009",
+    "note": "文档未收录示例，空参探测"
+  },
+  {
+    "id": "8",
+    "name": "创建司机货源",
+    "path": "/logistics/open-plat/goods/create-driver-goods",
+    "securityLevel": "L0",
+    "body": {
+      "goodsType": "10",
+      "shipperCompanyName": "河北优立丰农业科技有限公司",
+      "shipperCompanyId": "2079494019910078464",
+      "shipperCompanySocialCreditCode": "91130200MAC3FR5C7D",
+      "alias": "JY2608-08060001",
+      "shippingInfo": {
+        "sendAddrShortName": "北京市朝阳区",
+        "receiveAddrShortName": "北京海淀区",
+        "loadStime": "2026-09-01 01:00:00",
+        "loadEtime": "2026-09-01 09:00:00",
+        "unloadStime": "2026-09-01 13:00:00",
+        "unloadEtime": "2026-09-01 21:00:00",
+        "goodsValidEtime": "2026-09-01 09:00:00",
+        "sendAddrProvinceName": "北京市",
+        "sendAddrCityName": "北京市",
+        "sendAddrAreaName": "朝阳区",
+        "sendAddrProvince": "110000",
+        "sendAddrCity": "110100",
+        "sendAddrArea": "110105",
+        "sendAddrDetail": "王四营北路68号",
+        "sendLinker": "优立丰二",
+        "sendPhoneNumber": "13676746459",
+        "receiveAddrProvinceName": "北京市",
+        "receiveAddrCityName": "北京市",
+        "receiveAddrAreaName": "海淀区",
+        "receiveAddrProvince": "110000",
+        "receiveAddrCity": "110000",
+        "receiveAddrArea": "110108",
+        "receiveAddrDetail": "增光路26号",
+        "receiveLinker": "优立丰一",
+        "receivePhoneNumber": "13787673542",
+        "sendLnt": "116.543384",
+        "sendLat": "39.881298",
+        "receiveLnt": "116.32812",
+        "receiveLat": "39.927059"
+      },
+      "goodsItemInfo": {
+        "goodsName": "优立丰",
+        "goodsType": "0110",
+        "packType": "11",
+        "goodsTotalWeight": 11,
+        "pricingTotalQuantity": 11,
+        "pricingUnit": "30"
+      },
+      "transportRequire": {
+        "invoiceType": 20,
+        "networkCompanySocialCreditCode": "91130629MA0CX7UF0L1",
+        "networkMainBodyName": "万联易达物流科技有限公司",
+        "enquiryRange": "10",
+        "enquiryType": "20",
+        "unitPrice": 28.5,
+        "priceDifferenceType": 10,
+        "receiptDeductFlag": 0,
+        "entrustType": 20,
+        "freightPaymentMethod": 10,
+        "customerSocialCreditCode": "91130200MAC3FR5C7D",
+        "customerName": "河北优立丰农业科技有限公司"
+      },
+      "vehicleTypeLength": [
+        {
+          "vehicleType": "140",
+          "vehicleLength": "4.2"
+        }
+      ],
+      "assignSupplierList": [
+        {
+          "driverName": "肖11111",
+          "driverMobile": "13683230971",
+          "vehiclePlateNo": "津DF1234",
+          "vehicleColor": "93"
+        }
+      ]
+    },
+    "expect": "reachable"
+  },
+  {
+    "id": "10",
+    "name": "货源详情",
+    "path": "/logistics/open-plat/goods/query-by-goods-id",
+    "securityLevel": "L0",
+    "body": {
+      "goodsId": "DFQ2026052800000055"
+    },
+    "expect": "reachable"
+  },
+  {
+    "id": "11",
+    "name": "创建货源分享码",
+    "path": "/logistics/open-plat/goods-code/generate-sharing-qr",
+    "securityLevel": "L0",
+    "body": {
+      "bizIdentifyCode": "CHSJ20260421000000194444",
+      "inviteBizType": "10",
+      "qrType": "20",
+      "inviteBizId": "1980897735359021056"
+    },
+    "expect": "reachable"
+  },
+  {
+    "id": "12",
+    "name": "取消司机货源",
+    "path": "/logistics/open-plat/goods/cancel-driver-goods",
+    "securityLevel": "L0",
+    "body": {
+      "optType": "70",
+      "goodsId": "CHQY20260310000000031763",
+      "userName": "张三",
+      "reason": "取消货源测试"
+    },
+    "expect": "reachable"
+  },
+  {
+    "id": "13",
+    "name": "新增常用地址-新",
+    "path": "/logistics/common-address/get-or-add-address",
+    "securityLevel": "L0",
+    "body": {
+      "companyId": "2042055797776732160",
+      "lineAddressType": "2",
+      "lineShortName": "芍药居2",
+      "sendAddrProvince": "110000",
+      "sendAddrProvinceName": "北京市",
+      "sendAddrCity": "110100",
+      "sendAddrCityName": "北京市",
+      "sendAddrArea": "110105",
+      "sendAddrAreaName": "朝阳区",
+      "sendAddrDetail": "太阳宫南街6号",
+      "startSendLinker": "芍药居",
+      "startSendPhoneNumber": "13146395239",
+      "createBy": "2044351090808573952",
+      "longitude": "116.43588",
+      "latitude": "39.977801",
+      "platformCode": "40",
+      "bizStartTime": "",
+      "bizEndTime": "",
+      "orgId": "2042055797776732160"
+    },
+    "expect": "reachable"
+  },
+  {
+    "id": "14",
+    "name": "新-运单修改地址（出发地、目的地）",
+    "path": "/logistics/waybill-address/open-plat-change-apply",
+    "securityLevel": "L0",
+    "body": {},
+    "expect": "unavailable-5009",
+    "note": "文档未收录示例，空参探测"
+  },
+  {
+    "id": "16",
+    "name": "修改运单-单价",
+    "path": "/logistics/woa/update-waybill-price",
+    "securityLevel": "L0",
+    "body": {
+      "waybillId": "YD000000001",
+      "price": 60
+    },
+    "expect": "unavailable-4001"
+  },
+  {
+    "id": "17",
+    "name": "修改运单-结算信息",
+    "path": "/logistics/bms-waybill-pool/adjust-customer-bill-information",
+    "securityLevel": "L0",
+    "body": {
+      "waybillId": "TD2026050800000048",
+      "unitRice": 311.35,
+      "remark": "调整运费",
+      "bmsBusinessCostList": [
+        {
+          "businessCostId": "df6c5678bffe4242a755edf316a3bb7a",
+          "updBusCost": 311.35
+        }
+      ]
+    },
+    "expect": "reachable"
+  },
+  {
+    "id": "19",
+    "name": "修改运单信息",
+    "path": "/logistics/open-plat/waybill/update-load-unload-info",
+    "securityLevel": "L0",
+    "body": {
+      "waybillId": "TD2026050800000048",
+      "loadWeight": 44,
+      "unloadWeight": 32
+    },
+    "expect": "reachable"
+  },
+  {
+    "id": "20",
+    "name": "取消运单",
+    "path": "/logistics/tms/waybill/cancel-waybill",
+    "securityLevel": "L0",
+    "body": {
+      "waybillId": "TD2026061500000027",
+      "cancelReason": "已确认"
+    },
+    "expect": "unavailable-4001"
+  },
+  {
+    "id": "22",
+    "name": "更新装卸货信息",
+    "path": "/logistics/woa/update-load-unload-attachment",
+    "securityLevel": "L0",
+    "body": {
+      "attachmentsList": [
+        {
+          "attachmentUrl": "https://fastly.picsum.photos/id/985/800/605.jpg?hmac=rBNMYVj3WWAVwriJn4jb_3-8QScaOKKcAOVKLkQAoM4",
+          "attachmentType": "1"
+        },
+        {
+          "attachmentUrl": "https://fastly.picsum.photos/id/953/800/606.jpg?hmac=F_gz38GMcZ4Sd0l1le-K1W1-tEKDjfdmYB7dzY7Os2s",
+          "attachmentType": "3"
+        }
+      ],
+      "waybillId": "UD2026092400000021"
+    },
+    "expect": "unavailable-4001"
+  },
+  {
+    "id": "24",
+    "name": "查询司机审核状态",
+    "path": "/logistics/platform/car-verify/three-platform-query-driver-audit-status",
+    "securityLevel": "L0",
+    "body": {
+      "enterpriseId": "string",
+      "driverPhone": "string"
+    },
+    "expect": "reachable"
+  },
+  {
+    "id": "25",
+    "name": "查询车辆审核状态",
+    "path": "/logistics/platform/car-verify/three-platform-query-car-audit-status",
+    "securityLevel": "L0",
+    "body": {
+      "enterpriseId": "2059116237941305344",
+      "driverPhone": "15735104136"
+    },
+    "expect": "reachable"
+  },
+  {
+    "id": "26",
+    "name": "查询运单-预审信息",
+    "path": "/logistics/open-plat/settlement/query-settlement-snapshot",
+    "securityLevel": "L0",
+    "body": {
+      "waybillId": "TD2026062600000050"
+    },
+    "expect": "reachable"
+  },
+  {
+    "id": "27",
+    "name": "查询运单-基本信息",
+    "path": "/logistics/open-plat/waybill/info-query",
+    "securityLevel": "L0",
+    "body": {
+      "waybillId": "YD2024051800000028"
+    },
+    "expect": "reachable"
+  },
+  {
+    "id": "28",
+    "name": "查询运单-结算信息",
+    "path": "/logistics/bms-waybill-pool/query-settlement-snapshot",
+    "securityLevel": "L0",
+    "body": {
+      "waybillId": "TD2026062500000066"
+    },
+    "expect": "reachable"
+  },
+  {
+    "id": "29",
+    "name": "查询风控结果",
+    "path": "/logistics/open-plat/rms/risk-record-query",
+    "securityLevel": "L0",
+    "body": {
+      "waybillId": "UD2026060500000033"
+    },
+    "expect": "reachable"
+  },
+  {
+    "id": "30",
+    "name": "风险申诉记录查询",
+    "path": "/logistics/open-plat/rms/risk-appeal-record-query",
+    "securityLevel": "L0",
+    "body": {
+      "waybillIds": [
+        "TD2026052000000072"
+      ]
+    },
+    "expect": "reachable"
+  },
+  {
+    "id": "31",
+    "name": "查询运单-实时定位",
+    "path": "/logistics/open-plat/track/query-waybill-realtime-gps",
+    "securityLevel": "L0",
+    "body": {
+      "waybillId": "TD2026013000000099"
+    },
+    "expect": "reachable"
+  },
+  {
+    "id": "32",
+    "name": "查询运单-轨迹",
+    "path": "/logistics/open-plat/track/query-waybill-trace-gps",
+    "securityLevel": "L0",
+    "body": {
+      "beginDate": "2026-03-07 14:10:00",
+      "endDate": "2026-03-07 19:55:00",
+      "waybillId": "TD2026030700000002"
+    },
+    "expect": "reachable"
+  },
+  {
+    "id": "33",
+    "name": "查询字典",
+    "path": "/logistics/dict/query-valid-value-list",
+    "securityLevel": "L0",
+    "body": {
+      "dictCodeList": [
+        "lmt_pricing_unit",
+        "lmt_pack_type",
+        "car_length_enum",
+        "own_car_type",
+        "plate_color",
+        "goods_status",
+        "waybill_status"
+      ]
+    },
+    "expect": "reachable"
+  },
+  {
+    "id": "34",
+    "name": "获取账户金额信息接口",
+    "path": "/logistics/open-plat/network-freight-payment/account-info",
+    "securityLevel": "L0",
+    "body": {
+      "networkMainBodySocialCreditCode": "91130629MA0CX7UF0L",
+      "shipperSocialCreditCode": "913205085678467445"
+    },
+    "expect": "reachable"
+  },
+  {
+    "id": "35",
+    "name": "一车多司机验证结果查询",
+    "path": "/logistics/lgi-tax-check/rpt-result-query/query",
+    "securityLevel": "L0",
+    "body": {
+      "idCardNo": "142731197911220222",
+      "plateNo": "晋MH6245222",
+      "plateColor": 1
+    },
+    "expect": "reachable"
+  },
+  {
+    "id": "36",
+    "name": "发起预审",
+    "path": "/logistics/bms-waybill-pool/transfer-settlement-by-waybill-ids",
+    "securityLevel": "L0",
+    "body": {
+      "waybillIds": [
+        "UD2026082000000053"
+      ]
+    },
+    "expect": "reachable"
+  },
+  {
+    "id": "37",
+    "name": "运单终止结算",
+    "path": "/logistics/open-plat/settlement/waybill-stop-settlement",
+    "securityLevel": "L0",
+    "body": {
+      "waybillId": "UD2026062500000001"
+    },
+    "expect": "reachable"
+  },
+  {
+    "id": "40",
+    "name": "支付申请",
+    "path": "/logistics/bms-network-freight-payment/save-payment-and-details-new",
+    "securityLevel": "L0",
+    "body": {
+      "busBillId": "UD2026081900000032",
+      "handleAmount": 100,
+      "dataSource": "02",
+      "payType": "0"
+    },
+    "expect": "reachable"
+  },
+  {
+    "id": "41",
+    "name": "支付申请-带变更银行卡",
+    "path": "/logistics/open-plat/network-freight-payment/save-payment-and-details",
+    "securityLevel": "L0",
+    "body": {
+      "busBillId": "UD2026062500000008",
+      "handleAmount": 1.5,
+      "dataSource": "02",
+      "payType": "0",
+      "collAccountBankNumber": "6217001630046639261",
+      "collAccountDepositBank": "ABC",
+      "collAccountName": "黎容"
+    },
+    "expect": "reachable"
+  },
+  {
+    "id": "44",
+    "name": "预付付款&重新付款申请",
+    "path": "/logistics/bms-network-freight-payment-detail/re-pay-submit",
+    "securityLevel": "L0",
+    "body": {
+      "busBillId": "UD2026062500000001",
+      "serialNumber": "FUD202606250000000101",
+      "dataSource": "02",
+      "payType": "0",
+      "collAccountBankNumber": "6214830160640010",
+      "collAccountDepositBank": "CMBCHINA",
+      "collAccountName": "肖红"
+    },
+    "expect": "reachable"
+  },
+  {
+    "id": "45",
+    "name": "终止支付",
+    "path": "/logistics/bms-termination-pay/termination-pay",
+    "securityLevel": "L0",
+    "body": {
+      "busBillId": "TD2026042100000120",
+      "remark": "终止支付"
+    },
+    "expect": "reachable"
+  }
+]
