@@ -3,6 +3,7 @@
     "id": "1",
     "name": "同步车辆信息",
     "path": "/logistics/platform/car-verify/sync-car-data",
+    "x-woa-path": "/v2/logistics/sync-car-data",
     "securityLevel": "L0",
     "body": [
       {
@@ -78,6 +79,7 @@
     "id": "2",
     "name": "同步司机信息",
     "path": "/logistics/platform/driver-verify/sync-driver-data",
+    "x-woa-path": "/v2/logistics/sync-driver-data",
     "securityLevel": "L0",
     "body": [
       {
@@ -159,6 +161,7 @@
     "id": "3",
     "name": "更换司机手机号",
     "path": "/logistics/enterprise-driver/update-driver-phone",
+    "x-woa-path": "/common/1017",
     "securityLevel": "L0",
     "body": {
       "enterpriseId": "1980897735359021056",
@@ -171,6 +174,7 @@
     "id": "5",
     "name": "司机银行卡判断&绑定",
     "path": "/logistics/open-plat/bank-card/judge-bind",
+    "x-woa-path": "/v2/logistics/judge-bank-card",
     "securityLevel": "L0",
     "body": {
       "driverMobile": "13683230971",
@@ -186,6 +190,7 @@
     "id": "6",
     "name": "银行卡绑定查询",
     "path": "/logistics/open-plat/bank-card/bind-status-query",
+    "x-woa-path": "/v2/logistics/query-bank-card-bind-status",
     "securityLevel": "L0",
     "body": {
       "driverMobile": "13683230971",
@@ -198,6 +203,7 @@
     "id": "7",
     "name": "银行编码查询",
     "path": "/logistics/open-plat/bank-card/query-all-bank-info",
+    "x-woa-path": "",
     "securityLevel": "L0",
     "body": {},
     "expect": "unavailable-5009",
@@ -207,6 +213,7 @@
     "id": "8",
     "name": "创建司机货源",
     "path": "/logistics/open-plat/goods/create-driver-goods",
+    "x-woa-path": "/v2/logistics/zhejiangzhongyou/create-driver-goods",
     "securityLevel": "L0",
     "body": {
       "goodsType": "10",
@@ -288,6 +295,7 @@
     "id": "10",
     "name": "货源详情",
     "path": "/logistics/open-plat/goods/query-by-goods-id",
+    "x-woa-path": "/common/1018",
     "securityLevel": "L0",
     "body": {
       "goodsId": "DFQ2026052800000055"
@@ -298,6 +306,7 @@
     "id": "11",
     "name": "创建货源分享码",
     "path": "/logistics/open-plat/goods-code/generate-sharing-qr",
+    "x-woa-path": "/v2/logistics/generate-sharing-qr",
     "securityLevel": "L0",
     "body": {
       "bizIdentifyCode": "CHSJ20260421000000194444",
@@ -311,6 +320,7 @@
     "id": "12",
     "name": "取消司机货源",
     "path": "/logistics/open-plat/goods/cancel-driver-goods",
+    "x-woa-path": "/v2/logistics/zhejiangzhongyou/cancel-driver-goods",
     "securityLevel": "L0",
     "body": {
       "optType": "70",
@@ -324,6 +334,7 @@
     "id": "13",
     "name": "新增常用地址-新",
     "path": "/logistics/common-address/get-or-add-address",
+    "x-woa-path": "/common/1019",
     "securityLevel": "L0",
     "body": {
       "companyId": "2042055797776732160",
@@ -352,6 +363,7 @@
     "id": "14",
     "name": "新-运单修改地址（出发地、目的地）",
     "path": "/logistics/waybill-address/open-plat-change-apply",
+    "x-woa-path": "/v2/logistics/zhejiangzhongyou/update-waybill-address",
     "securityLevel": "L0",
     "body": {},
     "expect": "unavailable-5009",
@@ -361,6 +373,7 @@
     "id": "16",
     "name": "修改运单-单价",
     "path": "/logistics/woa/update-waybill-price",
+    "x-woa-path": "/v2/logistics/update-waybill-price",
     "securityLevel": "L0",
     "body": {
       "waybillId": "YD000000001",
@@ -372,6 +385,7 @@
     "id": "17",
     "name": "修改运单-结算信息",
     "path": "/logistics/bms-waybill-pool/adjust-customer-bill-information",
+    "x-woa-path": "/v2/logistics/adjust-waybill-settlement",
     "securityLevel": "L0",
     "body": {
       "waybillId": "TD2026050800000048",
@@ -390,6 +404,7 @@
     "id": "19",
     "name": "修改运单信息",
     "path": "/logistics/open-plat/waybill/update-load-unload-info",
+    "x-woa-path": "/common/1056",
     "securityLevel": "L0",
     "body": {
       "waybillId": "TD2026050800000048",
@@ -402,6 +417,7 @@
     "id": "20",
     "name": "取消运单",
     "path": "/logistics/tms/waybill/cancel-waybill",
+    "x-woa-path": "/v2/logistics/zhejiangzhongyou/cancel-waybill",
     "securityLevel": "L0",
     "body": {
       "waybillId": "TD2026061500000027",
@@ -413,6 +429,7 @@
     "id": "22",
     "name": "更新装卸货信息",
     "path": "/logistics/woa/update-load-unload-attachment",
+    "x-woa-path": "/v2/logistics/update-load-unload-attachment",
     "securityLevel": "L0",
     "body": {
       "attachmentsList": [
@@ -433,6 +450,7 @@
     "id": "24",
     "name": "查询司机审核状态",
     "path": "/logistics/platform/car-verify/three-platform-query-driver-audit-status",
+    "x-woa-path": "/v2/logistics/query-driver-audit-status",
     "securityLevel": "L0",
     "body": {
       "enterpriseId": "string",
@@ -444,6 +462,7 @@
     "id": "25",
     "name": "查询车辆审核状态",
     "path": "/logistics/platform/car-verify/three-platform-query-car-audit-status",
+    "x-woa-path": "/v2/logistics/query-car-audit-status",
     "securityLevel": "L0",
     "body": {
       "enterpriseId": "2059116237941305344",
@@ -455,6 +474,7 @@
     "id": "26",
     "name": "查询运单-预审信息",
     "path": "/logistics/open-plat/settlement/query-settlement-snapshot",
+    "x-woa-path": "/common/1021",
     "securityLevel": "L0",
     "body": {
       "waybillId": "TD2026062600000050"
@@ -465,6 +485,7 @@
     "id": "27",
     "name": "查询运单-基本信息",
     "path": "/logistics/open-plat/waybill/info-query",
+    "x-woa-path": "/v2/logistics/query-waybill-info",
     "securityLevel": "L0",
     "body": {
       "waybillId": "YD2024051800000028"
@@ -475,6 +496,7 @@
     "id": "28",
     "name": "查询运单-结算信息",
     "path": "/logistics/bms-waybill-pool/query-settlement-snapshot",
+    "x-woa-path": "/v2/logistics/settlement-query",
     "securityLevel": "L0",
     "body": {
       "waybillId": "TD2026062500000066"
@@ -485,6 +507,7 @@
     "id": "29",
     "name": "查询风控结果",
     "path": "/logistics/open-plat/rms/risk-record-query",
+    "x-woa-path": "/common/1022",
     "securityLevel": "L0",
     "body": {
       "waybillId": "UD2026060500000033"
@@ -495,6 +518,7 @@
     "id": "30",
     "name": "风险申诉记录查询",
     "path": "/logistics/open-plat/rms/risk-appeal-record-query",
+    "x-woa-path": "/v2/logistics/risk-appeal-record-query",
     "securityLevel": "L0",
     "body": {
       "waybillIds": [
@@ -507,6 +531,7 @@
     "id": "31",
     "name": "查询运单-实时定位",
     "path": "/logistics/open-plat/track/query-waybill-realtime-gps",
+    "x-woa-path": "/v2/logistics/zhejiangzhongyou/query-waybill-realtime-gps",
     "securityLevel": "L0",
     "body": {
       "waybillId": "TD2026013000000099"
@@ -517,6 +542,7 @@
     "id": "32",
     "name": "查询运单-轨迹",
     "path": "/logistics/open-plat/track/query-waybill-trace-gps",
+    "x-woa-path": "/v2/logistics/zhejiangzhongyou/query-waybill-trace-gps",
     "securityLevel": "L0",
     "body": {
       "beginDate": "2026-03-07 14:10:00",
@@ -529,6 +555,7 @@
     "id": "33",
     "name": "查询字典",
     "path": "/logistics/dict/query-valid-value-list",
+    "x-woa-path": "/v2/logistics/zhejiangzhongyou/query-dictionary",
     "securityLevel": "L0",
     "body": {
       "dictCodeList": [
@@ -547,6 +574,7 @@
     "id": "34",
     "name": "获取账户金额信息接口",
     "path": "/logistics/open-plat/network-freight-payment/account-info",
+    "x-woa-path": "/common/1015",
     "securityLevel": "L0",
     "body": {
       "networkMainBodySocialCreditCode": "91130629MA0CX7UF0L",
@@ -558,6 +586,7 @@
     "id": "35",
     "name": "一车多司机验证结果查询",
     "path": "/logistics/lgi-tax-check/rpt-result-query/query",
+    "x-woa-path": "/common/1053",
     "securityLevel": "L0",
     "body": {
       "idCardNo": "142731197911220222",
@@ -570,6 +599,7 @@
     "id": "36",
     "name": "发起预审",
     "path": "/logistics/bms-waybill-pool/transfer-settlement-by-waybill-ids",
+    "x-woa-path": "/v2/logistics/batch-transfer-settlement",
     "securityLevel": "L0",
     "body": {
       "waybillIds": [
@@ -582,6 +612,7 @@
     "id": "37",
     "name": "运单终止结算",
     "path": "/logistics/open-plat/settlement/waybill-stop-settlement",
+    "x-woa-path": "/common/1012",
     "securityLevel": "L0",
     "body": {
       "waybillId": "UD2026062500000001"
@@ -592,6 +623,7 @@
     "id": "40",
     "name": "支付申请",
     "path": "/logistics/bms-network-freight-payment/save-payment-and-details-new",
+    "x-woa-path": "/v2/logistics/save-payment-and-details-new",
     "securityLevel": "L0",
     "body": {
       "busBillId": "UD2026081900000032",
@@ -605,6 +637,7 @@
     "id": "41",
     "name": "支付申请-带变更银行卡",
     "path": "/logistics/open-plat/network-freight-payment/save-payment-and-details",
+    "x-woa-path": "/common/1014",
     "securityLevel": "L0",
     "body": {
       "busBillId": "UD2026062500000008",
@@ -621,6 +654,7 @@
     "id": "44",
     "name": "预付付款&重新付款申请",
     "path": "/logistics/bms-network-freight-payment-detail/re-pay-submit",
+    "x-woa-path": "/v2/logistics/re-pay-submit",
     "securityLevel": "L0",
     "body": {
       "busBillId": "UD2026062500000001",
@@ -637,6 +671,7 @@
     "id": "45",
     "name": "终止支付",
     "path": "/logistics/bms-termination-pay/termination-pay",
+    "x-woa-path": "/v2/logistics/terminate-payment",
     "securityLevel": "L0",
     "body": {
       "busBillId": "TD2026042100000120",

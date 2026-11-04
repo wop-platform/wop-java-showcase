@@ -1,0 +1,9 @@
+{
+  "baseUrl": "https://3u.wanlianyida.com/gateway/woa",
+  "connectTimeoutMs": 5000,
+  "readTimeoutMs": 15000,
+  "headers": {
+    "fixed-sys": "",
+    "fixed-key": ""
+  }
+}
