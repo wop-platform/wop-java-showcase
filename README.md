@@ -160,6 +160,22 @@ byte[] wireBody = draft.wireBody();                     // L2: {"encrypted":"...
 - **WopDemoControllerTest**（18 例，MockMvc + MockBean）：请求绑定（path/securityLevel/body 对象与缺省值、样例报文 method 字段容忍）、一站式成功/网关非 2xx/验签失败/缺 path 400/非法 securityLevel 400、分步成功与非 2xx、三类覆盖的 400 校验与参数透传、预览应答、config；
 - **WopAppServiceTest**（22 例，Mockito + 注入进程内 Transport）：恒以 POST 发送（含无 body）、body 序列化、L0/L2 级别传递、验签失败异常、分步三环节衔接、三类覆盖进入 `WopRequestOptions`、预览 L0+L2 单份/双份与 GET 无 body、配置打码。
 
+## UAT 契约测试（手动，真网关）
+
+`WopUatContractIT` 按 `src/test/resources/uat/cases.json` 逐个真实调用 UAT 网关（含写接口），
+用于联调阶段批量验证开放平台接口：
+
+```bash
+mvn test -Dtest=WopUatContractIT
+```
+
+- 类名以 `IT` 结尾，默认 `mvn test` **不会执行**；
+- 断言：**接口连通即通过**（验签通过 + 网关 2xx，说明请求已到达业务方并拿到应答）；
+  业务码非 `OK-000` 只在报告里标注“业务未通过”，不计入失败；网关非 2xx（如 `OP_GW_5009`/`OP_GW_4001`）判未通；
+- 安全闸：`serverRoot` 不包含 `uat` 时直接失败，防止误连生产；
+- 结果：控制台逐条输出，并生成 `target/uat-contract-report.md`；
+- **注意**：写接口使用文档示例真实执行，会在 UAT 产生或变更数据。
+
 ## 当前状态说明
 
 - 传输链路、签名、信封、预览均已实测通过；

@@ -64,7 +64,28 @@ class WopDemoControllerTest {
         WopCallRequest req = captor.getValue();
         assertThat(req.getPath()).isEqualTo("/logistics/waybill/query-waybill-info");
         assertThat(req.getSecurityLevel()).isEqualTo("L2");
-        assertThat(req.getBody()).containsEntry("waybillId", "TD2026062200000054");
+        assertThat(req.getBody()).isEqualTo(Map.of("waybillId", "TD2026062200000054"));
+    }
+
+    @Test
+    void bodyAcceptsJsonArray() throws Exception {
+        // 同步车辆/司机信息的业务入参是顶层数组，body 需原样绑定为 List
+        when(appService.oneStop(any())).thenReturn("{}");
+
+        mockMvc.perform(post("/api/wop/one-stop").contentType(MediaType.APPLICATION_JSON)
+                        .content("""
+                                {
+                                    "path": "/logistics/platform/car-verify/sync-car-data",
+                                    "securityLevel": "L0",
+                                    "body": [{"plateNo": "云VTY003", "plateColor": 1}]
+                                }
+                                """))
+                .andExpect(status().isOk());
+
+        ArgumentCaptor<WopCallRequest> captor = ArgumentCaptor.forClass(WopCallRequest.class);
+        verify(appService).oneStop(captor.capture());
+        assertThat(captor.getValue().getBody()).isInstanceOf(List.class);
+        assertThat((List<?>) captor.getValue().getBody()).hasSize(1);
     }
 
     @Test

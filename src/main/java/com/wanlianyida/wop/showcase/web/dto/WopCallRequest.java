@@ -1,13 +1,11 @@
 package com.wanlianyida.wop.showcase.web.dto;
 
-import java.util.Map;
-
 /**
  * 统一请求体（所有 POST 接口共用）。所有接口恒以 POST 发送。
  *
  * @param path           网关 API 路径，必填（以 / 开头的纯路径，如 /logistics/waybill/query-waybill-info）
  * @param securityLevel  安全级别 L0 / L2，缺省 L0
- * @param body           业务 JSON 对象，可为空对象（L2 需非空 body）
+ * @param body           业务 JSON（对象或数组均可，如同步车辆/司机信息的顶层数组）；可为空对象（L2 需非空 body）
  * @param connectTimeout 连接超时毫秒（仅 override/timeout 接口消费，&gt;0 生效）
  * @param readTimeout    读超时毫秒（仅 override/timeout 接口消费，&gt;0 生效）
  * @param appKey         覆盖用 appKey（仅 override/app-key 接口消费）
@@ -18,7 +16,7 @@ public class WopCallRequest {
 
     private String path;
     private String securityLevel;
-    private Map<String, Object> body;
+    private Object body;
     private Integer connectTimeout;
     private Integer readTimeout;
     private String appKey;
@@ -41,11 +39,11 @@ public class WopCallRequest {
         this.securityLevel = securityLevel;
     }
 
-    public Map<String, Object> getBody() {
+    public Object getBody() {
         return body;
     }
 
-    public void setBody(Map<String, Object> body) {
+    public void setBody(Object body) {
         this.body = body;
     }
 
