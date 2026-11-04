@@ -116,10 +116,26 @@ class WopUatContractIT {
             assertThat(baseUrl).as("businessConfig.json 缺少 baseUrl").isNotBlank();
             Map<String, String> headers = new LinkedHashMap<>();
             cfg.path("headers").fields().forEachRemaining(e -> headers.put(e.getKey(), e.getValue().asText()));
+            // 敏感信息：fixed-sys / fixed-key 优先取环境变量，配置文件只保留占位
+            String fixedSys = firstNonBlank(System.getenv("WOP_BIZ_FIXED_SYS"), headers.get("fixed-sys"));
+            String fixedKey = firstNonBlank(System.getenv("WOP_BIZ_FIXED_KEY"), headers.get("fixed-key"));
+            assertThat(fixedSys).as("缺少 fixed-sys：请设置环境变量 WOP_BIZ_FIXED_SYS").isNotBlank();
+            assertThat(fixedKey).as("缺少 fixed-key：请设置环境变量 WOP_BIZ_FIXED_KEY").isNotBlank();
+            headers.put("fixed-sys", fixedSys);
+            headers.put("fixed-key", fixedKey);
             return new BusinessClient(baseUrl, headers,
                     Duration.ofMillis(cfg.path("readTimeoutMs").asLong(15_000)),
                     Duration.ofMillis(cfg.path("connectTimeoutMs").asLong(5_000)));
         }
+    }
+
+    private static String firstNonBlank(String... values) {
+        for (String v : values) {
+            if (v != null && !v.isBlank()) {
+                return v.trim();
+            }
+        }
+        return "";
     }
 
     private CaseResult run(WopClient client, BusinessClient business, JsonNode c) {

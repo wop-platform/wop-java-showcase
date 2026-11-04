@@ -173,9 +173,15 @@ mvn test -Dtest=WopUatContractIT
 - 断言：**接口连通即通过**（验签通过 + 网关 2xx，说明请求已到达业务方并拿到应答）；
   业务码非 `OK-000` 只在报告里标注“业务未通过”，不计入失败；网关非 2xx（如 `OP_GW_5009`/`OP_GW_4001`）判未通；
 - 安全闸：`serverRoot` 不包含 `uat` 时直接失败，防止误连生产；
-- **直连业务方**：读取 `src/test/resources/uat/businessConfig.json` 的 `baseUrl` 与固定请求头，
+- **直连业务方**：读取 `src/test/resources/uat/businessConfig.json` 的 `baseUrl`，
   用 `cases.json` 中每条用例的 `x-woa-path` 拼出实际地址，POST 同一报文再调用一次；
   结果仅记录，不参与 PASS/FAIL；`x-woa-path` 为空的用例跳过；
+- **敏感配置**：`fixed-sys` / `fixed-key` 不入库，需通过环境变量 `WOP_BIZ_FIXED_SYS`、
+  `WOP_BIZ_FIXED_KEY` 提供（`businessConfig.json` 中仅保留空占位）：
+
+  ```bash
+  WOP_BIZ_FIXED_SYS=<值> WOP_BIZ_FIXED_KEY=<值> mvn test -Dtest=WopUatContractIT
+  ```
 - 结果：控制台逐条输出，并生成 `target/uat-contract-report-<yyyyMMdd-HHmmss>.md` 与
   `target/uat-contract-report-<yyyyMMdd-HHmmss>.csv`（同一时间戳，每次运行独立一份，不覆盖历史；
   CSV 为 UTF-8 BOM，Excel 可直接打开，含网关与业务方的业务码与返回值）；
