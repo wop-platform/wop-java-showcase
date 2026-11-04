@@ -1,3 +1,11 @@
 target/
 .idea/
 *.iml
+
+# 本地真实凭证 / 真实联调数据（仓库内仅保留脱敏示例）
+*.local.json
+src/main/resources/config/wopSdkConfig.local.json
+src/test/resources/uat/cases.local.json
+
+# 联调过程表（含真实业务与个人信息）
+上线范围以及回调关联关系_数据表_表格.csv

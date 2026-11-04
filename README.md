@@ -18,7 +18,7 @@ src/main/java/.../showcase/
     ├── WopDemoController.java               # REST 接口（全 POST，参数在 body）
     └── dto/WopCallRequest.java              # 统一请求体（普通类，getter/setter）
 src/test/java/.../
-├── web/WopDemoControllerTest.java           # Controller 全场景测试（MockMvc，18 例）
+├── web/WopDemoControllerTest.java           # Controller 全场景测试（MockMvc，19 例）
 └── service/WopAppServiceTest.java           # Service 逻辑测试（Mockito + 进程内 Transport，22 例）
 ```
 
@@ -27,22 +27,31 @@ src/test/java/.../
 ```bash
 # 依赖 SDK 0.3.0 已安装到本地仓库（SDK 仓执行: mvn -DskipTests install）
 mvn spring-boot:run    # 启动
-mvn test               # 单元测试（40 例，零网络）
+mvn test               # 单元测试（41 例，零网络）
 ```
 
-配置文件 `src/main/resources/config/wopSdkConfig.json`（当前为网关测试环境 + TEST-ONLY 联调密钥）：
+配置文件 `src/main/resources/config/wopSdkConfig.json`：
 
 | 字段 | 当前值 | 说明 |
 |------|--------|------|
 | `appKey` | `app_xxxxxxxxxxxxxxxx` | 商户 appKey（`x-wop-appkey` 头） |
 | `suite` | `WOP-RSA2048-SHA256` | 算法套件（默认 2048） |
-| `merchantPrivateKey` / `platformPublicKey` | TEST-ONLY | 商户私钥 / 平台公钥（Base64 单行） |
+| `merchantPrivateKey` / `platformPublicKey` | 演示值 | 商户私钥 / 平台公钥（Base64 单行）；私钥为一次性生成的**示例钥**，仅供启动演示 |
 | `serverRoot` | `https://<网关域名>:443` | 网关地址（HTTPS，含 context-path） |
 | `backupServerRoots` | `https://<备用网关域名>:443` | 备用网关（有序，主网关连接类失败后依序尝试） |
 | `expiredSeconds` | `1800` | 签名有效窗口（秒） |
 | `httpClient` | 10000 / 30000 / 3 | 连接超时 / 读超时（ms）/ 跨域名重试上限 |
 
-生产接入：把门户分发的正式凭证写入该文件；或改为外置部署
+> **仓库内只放演示凭证，真实 appKey / 私钥不要提交**（`*.local.json` 已被 `.gitignore` 忽略）。
+> 用下面的方式指向本地真实配置，优先级高于 classpath：
+>
+> ```bash
+> mvn spring-boot:run -Dwop.sdk.config=src/main/resources/config/wopSdkConfig.local.json
+> # 或
+> export WOP_SDK_CONFIG=/path/to/wopSdkConfig.json
+> ```
+
+生产接入：把门户分发的正式凭证写入外置文件
 `WopSdkConfigLoader.load("/etc/wop/wopSdkConfig.json")` / `WopClient.defaultClient()`（自动发现顺序见 SDK README）。
 
 ## 接口（除 config 外均为 POST，参数在 JSON body）
@@ -155,14 +164,37 @@ byte[] wireBody = draft.wireBody();                     // L2: {"encrypted":"...
 
 ## 测试
 
-`mvn test` 共 40 例（零网络）：
+`mvn test` 共 41 例（零网络）：
 
-- **WopDemoControllerTest**（18 例，MockMvc + MockBean）：请求绑定（path/securityLevel/body 对象与缺省值、样例报文 method 字段容忍）、一站式成功/网关非 2xx/验签失败/缺 path 400/非法 securityLevel 400、分步成功与非 2xx、三类覆盖的 400 校验与参数透传、预览应答、config；
+- **WopDemoControllerTest**（19 例，MockMvc + MockBean）：请求绑定（path/securityLevel/body 对象与缺省值、样例报文 method 字段容忍）、一站式成功/网关非 2xx/验签失败/缺 path 400/非法 securityLevel 400、分步成功与非 2xx、三类覆盖的 400 校验与参数透传、预览应答、config；
 - **WopAppServiceTest**（22 例，Mockito + 注入进程内 Transport）：恒以 POST 发送（含无 body）、body 序列化、L0/L2 级别传递、验签失败异常、分步三环节衔接、三类覆盖进入 `WopRequestOptions`、预览 L0+L2 单份/双份与 GET 无 body、配置打码。
+
+## UAT 契约测试（手动，真网关）
+
+`WopUatGatewayIT`（IT = Integration Test，集成测试）按 `src/test/resources/uat/cases.json`
+逐个真实调用 UAT 网关（含写接口），用于联调阶段批量验证开放平台接口：
+
+```bash
+mvn test -Dtest=WopUatGatewayIT
+```
+
+- 类名以 `IT` 结尾（Maven 集成测试惯例），默认 `mvn test` **不会执行**；
+- **用例数据已脱敏**：仓库内的手机号、身份证号、银行卡号、车牌、姓名、OSS 签名链接均为示例值，
+  真实入参放本地副本并用 `-Dwop.uat.cases=<path>`（或 `WOP_UAT_CASES`）指向它：
+  ```bash
+  mvn test -Dtest=WopUatGatewayIT \
+      -Dwop.sdk.config=src/main/resources/config/wopSdkConfig.local.json \
+      -Dwop.uat.cases=src/test/resources/uat/cases.local.json
+  ```
+- 断言：**接口连通即通过**（验签通过 + 网关 2xx，说明请求已到达业务方并拿到应答）；
+  业务码非 `OK-000` 只在报告里标注“业务未通过”，不计入失败；网关非 2xx（如 `OP_GW_5009`/`OP_GW_4001`）判未通；
+- 安全闸：`serverRoot` 不包含 `uat` 时直接失败，防止误连生产；
+- 结果：控制台逐条输出，并生成 `target/uat-contract-report.md`；
+- **注意**：写接口使用示例真实执行，会在 UAT 产生或变更数据。
 
 ## 当前状态说明
 
 - 传输链路、签名、信封、预览均已实测通过；
-- 网关测试环境对当前 TEST-ONLY appKey 返回 `401 OP_GW_1001 "appKey 为空或应用不存在"`
-  ——**签名请求已正确到达网关**，需在平台侧为该 appKey 开通测试环境权限后即可联通。
+- UAT 联调对 appKey 返回 `401 OP_GW_1001 "appKey 为空或应用不存在"` 时，说明
+  **签名请求已正确到达网关**，需在平台侧为该 appKey 开通测试环境权限后再重试。
 - SDK 协议正确性由其自带的黄金向量 conformance 套件保障。
